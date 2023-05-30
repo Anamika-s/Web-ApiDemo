@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web-ApiDemo", "Web-ApiDemo\Web-ApiDemo.csproj", "{BD7F6A1B-BC33-42D1-B458-A64AB38D4381}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web-ApiDemo", "Web-ApiDemo\Web-ApiDemo.csproj", "{BD7F6A1B-BC33-42D1-B458-A64AB38D4381}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{A6751BE5-DEF8-4DC0-BA6B-03A55A3CD467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCClient", "MVCClient\MVCClient.csproj", "{4362E30C-C0F5-41F1-9286-8804EA28844A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{BD7F6A1B-BC33-42D1-B458-A64AB38D4381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD7F6A1B-BC33-42D1-B458-A64AB38D4381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD7F6A1B-BC33-42D1-B458-A64AB38D4381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6751BE5-DEF8-4DC0-BA6B-03A55A3CD467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6751BE5-DEF8-4DC0-BA6B-03A55A3CD467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6751BE5-DEF8-4DC0-BA6B-03A55A3CD467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6751BE5-DEF8-4DC0-BA6B-03A55A3CD467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4362E30C-C0F5-41F1-9286-8804EA28844A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4362E30C-C0F5-41F1-9286-8804EA28844A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4362E30C-C0F5-41F1-9286-8804EA28844A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4362E30C-C0F5-41F1-9286-8804EA28844A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
