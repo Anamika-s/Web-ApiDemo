@@ -36,7 +36,7 @@ namespace Web_ApiDemo.Controllers
         [HttpGet("{id}")]
         public Student GetStudent(int id)
         {
-            return list[id];
+            return list[id-1];
         }
 
         [HttpPost]
@@ -66,8 +66,8 @@ namespace Web_ApiDemo.Controllers
         [HttpDelete("{id}")]
         public void DeleteStudent(int id)
         {
-            Student student = list.Where(x=>x.Id== id).FirstOrDefault();    
-
+            Student student = list.Where(x=>x.Id== id-1).FirstOrDefault();    
+            if(student != null)
             list.Remove(student);
         }
 

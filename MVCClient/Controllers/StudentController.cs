@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿//using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVCClient.Models;
 using Newtonsoft.Json;
@@ -29,8 +29,8 @@ namespace MVCClient.Controllers
                 }
                 else
                 {
-                   ViewBag.msg = response.ReasonPhrase;
-                    
+                    ViewBag.msg = response.ReasonPhrase;
+
                 }
                 return View(students);
 
@@ -38,11 +38,32 @@ namespace MVCClient.Controllers
         }
 
         // GET: StudentController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
-        }
+            using (var client = new HttpClient())
+            {
+                Student student = new Student();
+                //Send HTTP requests from here. 
+                client.BaseAddress = new Uri("http://localhost:5259/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //GET Method  
+                HttpResponseMessage response = await client.GetAsync("api/Student/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync();
+                    jsonString.Wait();
+                    student = JsonConvert.DeserializeObject<Student>(jsonString.Result);
 
+                }
+                else
+                {
+                    ViewBag.msg = response.ReasonPhrase;
+
+                }
+                return View(student);
+            }
+        }
         // GET: StudentController/Create
         public ActionResult Create()
         {
@@ -52,32 +73,87 @@ namespace MVCClient.Controllers
         // POST: StudentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Student student)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var client = new HttpClient())
+                {
+
+                    //Send HTTP requests from here. 
+                    client.BaseAddress = new Uri("http://localhost:5259/");
+
+                     HttpResponseMessage response = await client.PostAsJsonAsync("api/Student", student);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Get the URI of the created resource.  
+                        return RedirectToAction("Index");
+                    }
+                    else 
+                        return View(student);
+                }
+
             }
             catch
             {
-                return View();
-            }
+                return View(student);
+            }  
         }
+
 
         // GET: StudentController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
-        }
+            using (var client = new HttpClient())
+            {
+                Student student = new Student();
+                //Send HTTP requests from here. 
+                client.BaseAddress = new Uri("http://localhost:5259/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //GET Method  
+                HttpResponseMessage response = await client.GetAsync("api/Student/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync();
+                    jsonString.Wait();
+                    student = JsonConvert.DeserializeObject<Student>(jsonString.Result);
+                    return View(student);
+                }
+                else
+                {
+                    ViewBag.msg = response.ReasonPhrase;
+                    return View();
+                }
 
-        // POST: StudentController/Edit/5
-        [HttpPost]
+            }
+
+        }
+            // POST: StudentController/Edit/5
+            [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Student student)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var client = new HttpClient())
+                {
+                    //Send HTTP requests from here. 
+                    client.BaseAddress = new Uri("http://localhost:5259/");
+
+                    //PUT Method  
+                     HttpResponseMessage response = await client.PutAsJsonAsync("api/Student/" + id, student);
+                    if (response.IsSuccessStatusCode)
+
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else 
+                        return View(student);
+                }
+
+               
             }
             catch
             {
@@ -86,19 +162,52 @@ namespace MVCClient.Controllers
         }
 
         // GET: StudentController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            using (var client = new HttpClient())
+            {
+                Student student = new Student();
+                //Send HTTP requests from here. 
+                client.BaseAddress = new Uri("http://localhost:5259/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //GET Method  
+                HttpResponseMessage response = await client.GetAsync("api/Student/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync();
+                    jsonString.Wait();
+                    student = JsonConvert.DeserializeObject<Student>(jsonString.Result);
+                    return View(student);
+                }
+                else
+                {
+                    ViewBag.msg = response.ReasonPhrase;
+                    return View();
+                }
+            }
         }
 
-        // POST: StudentController/Delete/5
-        [HttpPost]
+            // POST: StudentController/Delete/5
+            [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Deleted(int id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var client = new HttpClient())
+                {
+                    //Send HTTP requests from here. 
+                    client.BaseAddress = new Uri("http://localhost:5259/");
+
+                    HttpResponseMessage response = await client.DeleteAsync("api/Student/" + id);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                        return View();
+                }
             }
             catch
             {
